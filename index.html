@@ -50,9 +50,8 @@ header{
 }
 /* 论文题名是完整的一句，不分主副标题 —— 单一字号、单一字重。 */
 h1{
-  font-family:var(--serif); font-weight:600; font-size:clamp(1.4rem,3.1vw,2.1rem);
-  line-height:1.25; letter-spacing:-0.01em; margin:0 auto;
-  max-width:20em; text-wrap:balance;
+  font-family:var(--serif); font-weight:600; font-size:clamp(1.15rem,2.6vw,1.8rem);
+  line-height:1.3; letter-spacing:-0.01em; margin:0 auto;
 }
 .venue{
   display:inline-block; margin:18px 0 0; padding:4px 12px; border-radius:999px;
@@ -162,8 +161,8 @@ footer a{color:var(--fg-muted)}
 
 <header>
   <div class="wrap">
-    <h1>Do Robots Need All Tactile Signals? Evaluating Tactile Field Selection
-    in Contact-rich Imitation Learning</h1>
+    <h1>Do Robots Need All Tactile Signals? Evaluating Tactile Field<br>
+    Selection in Contact-rich Imitation Learning</h1>
     <p class="authors">
       <span><a href="https://github.com/theotaoliu">Tao Liu</a></span>·<span><a
       href="https://github.com/guningquan">Ningquan Gu</a></span>·<span><a
@@ -177,18 +176,6 @@ footer a{color:var(--fg-muted)}
 
   </div>
 </header>
-
-<section id="teaser">
-  <div class="wrap">
-    <figure>
-      <img src="assets/img/main_image.jpg" alt="Manipulation with tactile sensing: the two tasks and the force_norm readings at both gripper pads.">
-      <figcaption><b>Manipulation with tactile sensing.</b> Each follower gripper carries two optical
-      tactile sensors (left). The <b>hidden-property</b> task identifies an object from mass and
-      friction felt during grasping; the <b>wiping</b> task maintains contact at varying board
-      heights. Rows (2) and (4) show <code>force_norm</code> at the two pads.</figcaption>
-    </figure>
-  </div>
-</section>
 
 <section id="abstract">
   <div class="wrap">
@@ -211,53 +198,13 @@ footer a{color:var(--fg-muted)}
     the same pair helping on one task and collapsing on the other, and concatenating all seven fields
     degrades success to 26.7% and 40.0%. Selecting task-matched tactile representations is therefore
     far more effective than maximising tactile input dimensionality.</p>
-  </div>
-</section>
-
-<section id="videos">
-  <div class="wrap">
-    <h2>Real-Robot Deployment</h2>
-    <p class="lead">Successful closed-loop rollouts of the winning policy on each task. In both
-    videos the panel at the <b>top right</b> is the live, frame-synchronised tactile field that the
-    policy actually consumes.</p>
-
-    <div class="vid">
-      <div class="vid-head">
-        <span class="vid-tag">TASK 1</span>
-        <span class="vid-title">Hidden-property pick-and-place</span>
-        <span class="vid-field">force_norm</span>
-      </div>
-      <video controls preload="metadata" playsinline poster="assets/img/poster_t1.jpg">
-        <source src="assets/video/task_t1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-        <a href="assets/video/task_t1.mp4">Download the video</a>.
-      </video>
-      <p class="vid-note">Three consecutive evaluation episodes — <b>cube A</b>, <b>cube B</b> and
-      <b>cube C</b>. The three cubes are visually identical at 31.1&nbsp;mm edge length and differ
-      only in hidden mass and surface friction, so the assigned target cannot be inferred from the
-      pre-grasp camera view. The <b>top-right overlay</b> shows the real-time, synchronised
-      <code>force_norm</code> field from the <b>left-arm</b> tactile sensors, drawn on a shared
-      fixed magnitude scale. Played at 2&times; speed.</p>
-    </div>
-
-    <div class="vid">
-      <div class="vid-head">
-        <span class="vid-tag">TASK 2</span>
-        <span class="vid-title">Pressure-regulated wiping</span>
-        <span class="vid-field">marker2d</span>
-      </div>
-      <video controls preload="metadata" playsinline poster="assets/img/poster_t2.jpg">
-        <source src="assets/video/task_t2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-        <a href="assets/video/task_t2.mp4">Download the video</a>.
-      </video>
-      <p class="vid-note">Five consecutive evaluation episodes, <b>one at each board height</b>,
-      each announced by a title card (20, 27, 40, 47 and 60&nbsp;mm; 27 and 47&nbsp;mm are never
-      demonstrated). Because the height is set by stacking books, the descent at which contact
-      begins is not constant and cannot be memorised as a fixed joint trajectory. The
-      <b>top-right overlay</b> shows the real-time, synchronised <code>marker2d</code> displacement
-      field at both <b>right-arm</b> tactile pads. Played at 2&times; speed.</p>
-    </div>
+    <figure>
+      <img src="assets/img/main_image.jpg" alt="Manipulation with tactile sensing: the two tasks and the force_norm readings at both gripper pads.">
+      <figcaption><b>Manipulation with tactile sensing.</b> Each follower gripper carries two optical
+      tactile sensors (left). The <b>hidden-property</b> task identifies an object from mass and
+      friction felt during grasping; the <b>wiping</b> task maintains contact at varying board
+      heights. Rows (2) and (4) show <code>force_norm</code> at the two pads.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -294,6 +241,49 @@ footer a{color:var(--fg-muted)}
       the overhead and wrist cameras, the cushioned workspace and the foot pedal. Each follower
       gripper carries two Xense G1-WS optical tactile sensors at the thumb and forefinger.</figcaption>
     </figure>
+  </div>
+</section>
+
+<section id="tasks">
+  <div class="wrap">
+    <h2>Tasks</h2>
+    <p class="lead">Both tasks are designed so that the information a vision-only policy is missing
+    is specific and nameable. Each contributes 60 demonstrations recorded at 50&nbsp;Hz.</p>
+
+    <figure>
+      <img src="assets/img/mission_flow.png" alt="Both tasks as a stage sequence, with the policy's overhead view and the tactile field at the same instants.">
+      <figcaption><b>Task definitions.</b> Both tasks as a stage sequence, one evaluation episode
+      each. Upper row of each band: the cropped overhead view the policy receives. Lower row: the
+      tactile field at the same instants — <code>force_norm</code> at both pads for Task 1, one
+      shared scale per pad, and <code>marker2d</code> displacement for Task 2, arrows ×15.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/img/objects.jpg" alt="Object sets for both tasks: the gripper with its sensors, the three cubes, the sensor, the eraser and whiteboard.">
+      <figcaption><b>Object sets.</b> (a) A follower gripper with its two sensors. (b)–(e) Task 1:
+      the target layout (<i>D</i> unused) and the three cubes; the identifying letters face the
+      table, and neither surface nor mass is resolvable in the policy's views. (f) The Xense G1-WS
+      sensor. (g)–(j) Task 2: the marker, the eraser's felt wiping face (red) and smooth gripping
+      face (blue), and the whiteboard at 20 and 60&nbsp;mm.</figcaption>
+    </figure>
+
+    <h3>Task 1 — hidden-property pick-and-place</h3>
+    <p>Three cubes <i>A</i>, <i>B</i> and <i>C</i> of identical 31.1&nbsp;mm edge length must each be
+    transported to an assigned target. All three are hollow printed shells differing only in hidden
+    properties: <i>A</i> and <i>B</i> carry the same anti-slip tape at 13 and 109&nbsp;g, and <i>C</i>
+    is bare PLA at 13&nbsp;g — so (<i>A</i>,&nbsp;<i>B</i>) varies mass at fixed friction and
+    (<i>A</i>,&nbsp;<i>C</i>) friction at fixed mass. All three are demonstrated identically; no
+    cube-specific behaviour is taught. Because a policy that always releases in one region scores
+    exactly 5/15&nbsp;=&nbsp;33.3% by construction, this is Task 1's <b>collapse floor</b>, not a
+    level of ability.</p>
+
+    <h3>Task 2 — pressure-regulated wiping</h3>
+    <p>The right follower grasps a board eraser, moves it over a mark at the whiteboard centre,
+    presses down and wipes with its felt face. Board height is set by stacking 6.7&nbsp;mm books, so
+    the descent at which contact begins is not constant and cannot be memorised as a fixed joint
+    trajectory. Demonstrations use 3, 6 and 9 books (20, 40, 60&nbsp;mm); evaluation adds two
+    <b>interleaved, never-demonstrated</b> heights, 4 and 7 books (27 and 47&nbsp;mm), so Task 2 also
+    measures interpolation to unseen geometry.</p>
   </div>
 </section>
 
@@ -348,46 +338,50 @@ footer a{color:var(--fg-muted)}
   </div>
 </section>
 
-<section id="tasks">
+<section id="videos">
   <div class="wrap">
-    <h2>Tasks</h2>
-    <p class="lead">Both tasks are designed so that the information a vision-only policy is missing
-    is specific and nameable. Each contributes 60 demonstrations recorded at 50&nbsp;Hz.</p>
+    <h2>Real-Robot Deployment</h2>
+    <p class="lead">Successful closed-loop rollouts of the winning policy on each task. In both
+    videos the panel at the <b>top right</b> is the live, frame-synchronised tactile field that the
+    policy actually consumes.</p>
 
-    <figure>
-      <img src="assets/img/mission_flow.png" alt="Both tasks as a stage sequence, with the policy's overhead view and the tactile field at the same instants.">
-      <figcaption><b>Task definitions.</b> Both tasks as a stage sequence, one evaluation episode
-      each. Upper row of each band: the cropped overhead view the policy receives. Lower row: the
-      tactile field at the same instants — <code>force_norm</code> at both pads for Task 1, one
-      shared scale per pad, and <code>marker2d</code> displacement for Task 2, arrows ×15.</figcaption>
-    </figure>
+    <div class="vid">
+      <div class="vid-head">
+        <span class="vid-tag">TASK 1</span>
+        <span class="vid-title">Hidden-property pick-and-place</span>
+        <span class="vid-field">force_norm</span>
+      </div>
+      <video controls preload="metadata" playsinline poster="assets/img/poster_t1.jpg">
+        <source src="assets/video/task_t1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        <a href="assets/video/task_t1.mp4">Download the video</a>.
+      </video>
+      <p class="vid-note">Three consecutive evaluation episodes — <b>cube A</b>, <b>cube B</b> and
+      <b>cube C</b>. The three cubes are visually identical at 31.1&nbsp;mm edge length and differ
+      only in hidden mass and surface friction, so the assigned target cannot be inferred from the
+      pre-grasp camera view. The <b>top-right overlay</b> shows the real-time, synchronised
+      <code>force_norm</code> field from the <b>left-arm</b> tactile sensors, drawn on a shared
+      fixed magnitude scale. Played at 2&times; speed.</p>
+    </div>
 
-    <figure>
-      <img src="assets/img/objects.jpg" alt="Object sets for both tasks: the gripper with its sensors, the three cubes, the sensor, the eraser and whiteboard.">
-      <figcaption><b>Object sets.</b> (a) A follower gripper with its two sensors. (b)–(e) Task 1:
-      the target layout (<i>D</i> unused) and the three cubes; the identifying letters face the
-      table, and neither surface nor mass is resolvable in the policy's views. (f) The Xense G1-WS
-      sensor. (g)–(j) Task 2: the marker, the eraser's felt wiping face (red) and smooth gripping
-      face (blue), and the whiteboard at 20 and 60&nbsp;mm.</figcaption>
-    </figure>
-
-    <h3>Task 1 — hidden-property pick-and-place</h3>
-    <p>Three cubes <i>A</i>, <i>B</i> and <i>C</i> of identical 31.1&nbsp;mm edge length must each be
-    transported to an assigned target. All three are hollow printed shells differing only in hidden
-    properties: <i>A</i> and <i>B</i> carry the same anti-slip tape at 13 and 109&nbsp;g, and <i>C</i>
-    is bare PLA at 13&nbsp;g — so (<i>A</i>,&nbsp;<i>B</i>) varies mass at fixed friction and
-    (<i>A</i>,&nbsp;<i>C</i>) friction at fixed mass. All three are demonstrated identically; no
-    cube-specific behaviour is taught. Because a policy that always releases in one region scores
-    exactly 5/15&nbsp;=&nbsp;33.3% by construction, this is Task 1's <b>collapse floor</b>, not a
-    level of ability.</p>
-
-    <h3>Task 2 — pressure-regulated wiping</h3>
-    <p>The right follower grasps a board eraser, moves it over a mark at the whiteboard centre,
-    presses down and wipes with its felt face. Board height is set by stacking 6.7&nbsp;mm books, so
-    the descent at which contact begins is not constant and cannot be memorised as a fixed joint
-    trajectory. Demonstrations use 3, 6 and 9 books (20, 40, 60&nbsp;mm); evaluation adds two
-    <b>interleaved, never-demonstrated</b> heights, 4 and 7 books (27 and 47&nbsp;mm), so Task 2 also
-    measures interpolation to unseen geometry.</p>
+    <div class="vid">
+      <div class="vid-head">
+        <span class="vid-tag">TASK 2</span>
+        <span class="vid-title">Pressure-regulated wiping</span>
+        <span class="vid-field">marker2d</span>
+      </div>
+      <video controls preload="metadata" playsinline poster="assets/img/poster_t2.jpg">
+        <source src="assets/video/task_t2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        <a href="assets/video/task_t2.mp4">Download the video</a>.
+      </video>
+      <p class="vid-note">Five consecutive evaluation episodes, <b>one at each board height</b>,
+      each announced by a title card (20, 27, 40, 47 and 60&nbsp;mm; 27 and 47&nbsp;mm are never
+      demonstrated). Because the height is set by stacking books, the descent at which contact
+      begins is not constant and cannot be memorised as a fixed joint trajectory. The
+      <b>top-right overlay</b> shows the real-time, synchronised <code>marker2d</code> displacement
+      field at both <b>right-arm</b> tactile pads. Played at 2&times; speed.</p>
+    </div>
   </div>
 </section>
 
