@@ -48,17 +48,20 @@ header{
   border-bottom:1px solid var(--rule);
   background:linear-gradient(180deg,var(--bg-alt),var(--bg));
 }
+/* 论文题名是完整的一句，不分主副标题 —— 单一字号、单一字重。 */
 h1{
-  font-family:var(--serif); font-weight:600; font-size:clamp(1.75rem,4.2vw,2.75rem);
-  line-height:1.2; letter-spacing:-0.01em; margin:0 0 6px;
+  font-family:var(--serif); font-weight:600; font-size:clamp(1.4rem,3.1vw,2.1rem);
+  line-height:1.25; letter-spacing:-0.01em; margin:0 auto;
+  max-width:20em; text-wrap:balance;
 }
-h1 .sub{display:block; font-size:.72em; color:var(--fg-muted); margin-top:10px; font-weight:400}
 .venue{
   display:inline-block; margin:18px 0 0; padding:4px 12px; border-radius:999px;
   background:var(--accent-soft); color:var(--accent);
   font-size:.8rem; font-weight:600; letter-spacing:.03em;
 }
 .authors{margin:22px 0 4px; font-size:1.08rem}
+.authors a{color:inherit; border-bottom:1px solid var(--rule-strong); text-decoration:none}
+.authors a:hover{color:var(--accent); border-bottom-color:var(--accent)}
 .authors span{white-space:nowrap; margin:0 .35em}
 .affil{color:var(--fg-muted); font-size:.94rem; margin:6px 0 0}
 .affil .corr{font-size:.86rem; color:var(--fg-faint)}
@@ -104,6 +107,8 @@ figcaption b{color:var(--fg)}
   border-left:3px solid var(--rule-strong); padding-left:14px;
 }
 .vid-note b{color:var(--fg)}
+.vid-grid{display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); margin:26px 0 0}
+.vid-grid .vid{margin:0}
 
 /* ---------- tables ---------- */
 .tablewrap{overflow-x:auto; margin:20px 0; -webkit-overflow-scrolling:touch}
@@ -157,11 +162,12 @@ footer a{color:var(--fg-muted)}
 
 <header>
   <div class="wrap">
-    <h1>Do Robots Need All Tactile Signals?
-      <span class="sub">Evaluating Tactile Field Selection in Contact-rich Imitation Learning</span>
-    </h1>
+    <h1>Do Robots Need All Tactile Signals? Evaluating Tactile Field Selection
+    in Contact-rich Imitation Learning</h1>
     <p class="authors">
-      <span>Tao Liu</span>·<span>Ningquan Gu</span>·<span>Mitsuhiro Hayashibe<sup>*</sup></span>
+      <span><a href="https://github.com/theotaoliu">Tao Liu</a></span>·<span><a
+      href="https://github.com/guningquan">Ningquan Gu</a></span>·<span><a
+      href="https://neuro.mech.tohoku.ac.jp/">Mitsuhiro Hayashibe</a><sup>*</sup></span>
     </p>
     <p class="affil">
       Neuro-Robotics Laboratory, Department of Robotics,<br>
@@ -288,6 +294,57 @@ footer a{color:var(--fg-muted)}
       the overhead and wrist cameras, the cushioned workspace and the foot pedal. Each follower
       gripper carries two Xense G1-WS optical tactile sensors at the thumb and forefinger.</figcaption>
     </figure>
+  </div>
+</section>
+
+<section id="collection">
+  <div class="wrap">
+    <h2>Teleoperated Data Collection</h2>
+    <p class="lead">All 120 demonstrations were collected by teleoperation through the leader
+    arms. Because the properties that matter in these tasks &mdash; a cube&rsquo;s hidden mass, the
+    moment the eraser meets the board &mdash; are not visible in the camera views, the operator
+    relies on the live tactile display as much as on the scene itself.</p>
+
+    <figure>
+      <img src="assets/img/monitoring.png" alt="The teleoperation monitoring interface: three camera views, two tactile pad views, and a terminal tracking timestep progress.">
+      <figcaption><b>Real-time monitoring during teleoperation.</b> The top row shows the three
+      camera views the policy receives &mdash; left wrist, overhead and right wrist. The second row
+      shows the rectified tactile images (<code>rectify_bgr</code>) from the right gripper&rsquo;s
+      thumb and forefinger pads. The terminal below tracks timestep progress during data
+      collection.</figcaption>
+    </figure>
+
+    <div class="vid-grid">
+      <div class="vid">
+        <div class="vid-head">
+          <span class="vid-tag">TASK 1</span>
+          <span class="vid-title">Hidden-property pick-and-place</span>
+        </div>
+        <video controls preload="metadata" playsinline poster="assets/img/poster_teleop_t1.jpg">
+          <source src="assets/video/teleop_t1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          <a href="assets/video/teleop_t1.mp4">Download the video</a>.
+        </video>
+      </div>
+      <div class="vid">
+        <div class="vid-head">
+          <span class="vid-tag">TASK 2</span>
+          <span class="vid-title">Pressure-regulated wiping</span>
+        </div>
+        <video controls preload="metadata" playsinline poster="assets/img/poster_teleop_t2.jpg">
+          <source src="assets/video/teleop_t2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          <a href="assets/video/teleop_t2.mp4">Download the video</a>.
+        </video>
+      </div>
+    </div>
+    <p class="vid-note">Each clip is split-screen: a <b>hand-held view of the cell</b> on the left,
+    the <b>operator&rsquo;s screen</b> on the right. The teleoperator performs the task by visually
+    observing the scene directly and by monitoring sensor outputs on the screen, especially the
+    visualised tactile information; the next action is determined from this combined perception.
+    After completing an episode the teleoperator decides whether it was successful &mdash; pressing
+    <b>C</b> to continue, <b>R</b> to repeat the episode, or <b>S</b> to stop. A foot pedal drives
+    this loop so both hands stay on the leader arms.</p>
   </div>
 </section>
 
