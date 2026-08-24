@@ -7,16 +7,18 @@
 <meta name="description" content="A controlled study of how tactile field selection governs visuo-tactile imitation learning performance on a four-arm ALOHA platform.">
 <meta property="og:title" content="Do Robots Need All Tactile Signals?">
 <meta property="og:description" content="Evaluating Tactile Field Selection in Contact-rich Imitation Learning.">
-<meta property="og:image" content="assets/img/main_image.jpg">
+<meta property="og:image" content="https://theotaoliu.github.io/act-tactile-page/assets/img/main_image.jpg">
+<meta property="og:url" content="https://theotaoliu.github.io/act-tactile-page/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://theotaoliu.github.io/act-tactile-page/">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#129306;</text></svg>">
 <style>
 :root{
-  --bg:#ffffff; --bg-alt:#f6f7f9; --bg-code:#f2f3f5;
+  --bg:#ffffff; --bg-alt:#f6f7f9;
   --fg:#1a1c1f; --fg-muted:#5b6169; --fg-faint:#868d96;
   --rule:#e2e5e9; --rule-strong:#c9ced5;
   --accent:#0b6b6b; --accent-soft:#e3f1f0; --accent-fg:#ffffff;
-  --warn:#9a3d1c; --warn-soft:#fbeae2;
   --maxw:960px;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
@@ -24,11 +26,10 @@
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --bg:#101215; --bg-alt:#171a1e; --bg-code:#1c2025;
+    --bg:#101215; --bg-alt:#171a1e;
     --fg:#e8eaed; --fg-muted:#a8b0b9; --fg-faint:#7c848d;
     --rule:#282d33; --rule-strong:#3a4149;
     --accent:#4fbdb1; --accent-soft:#14302e; --accent-fg:#08110f;
-    --warn:#e0a184; --warn-soft:#2e1d15;
   }
 }
 *{box-sizing:border-box}
@@ -52,11 +53,6 @@ header{
 h1{
   font-family:var(--serif); font-weight:600; font-size:clamp(1.15rem,2.6vw,1.8rem);
   line-height:1.3; letter-spacing:-0.01em; margin:0 auto;
-}
-.venue{
-  display:inline-block; margin:18px 0 0; padding:4px 12px; border-radius:999px;
-  background:var(--accent-soft); color:var(--accent);
-  font-size:.8rem; font-weight:600; letter-spacing:.03em;
 }
 .authors{margin:22px 0 4px; font-size:1.08rem}
 .authors a{color:inherit; border-bottom:1px solid var(--rule-strong); text-decoration:none}
@@ -263,7 +259,7 @@ footer a{color:var(--fg-muted)}
       <figcaption><b>Object sets.</b> (a) A follower gripper with its two sensors. (b)–(e) Task 1:
       the target layout (<i>D</i> unused) and the three cubes; the identifying letters face the
       table, and neither surface nor mass is resolvable in the policy's views. (f) The Xense G1-WS
-      sensor. (g)–(j) Task 2: the marker, the eraser's felt wiping face (red) and smooth gripping
+      sensor. (g)–(j) Task 2: the marker, the eraser's felt wiping face (red) and taped gripping
       face (blue), and the whiteboard at 20 and 60&nbsp;mm.</figcaption>
     </figure>
 
@@ -299,7 +295,7 @@ footer a{color:var(--fg-muted)}
       <img src="assets/img/monitoring.png" alt="The teleoperation monitoring interface: three camera views, two tactile pad views, and a terminal tracking timestep progress.">
       <figcaption><b>Real-time monitoring during teleoperation.</b> The top row shows the three
       camera views the policy receives &mdash; left wrist, overhead and right wrist. The second row
-      shows the rectified tactile images (<code>rectify_bgr</code>) from the right gripper&rsquo;s
+      shows the rectified tactile images (<code>rectify_rgb</code>) from the right gripper&rsquo;s
       thumb and forefinger pads. The terminal below tracks timestep progress during data
       collection.</figcaption>
     </figure>
@@ -341,9 +337,10 @@ footer a{color:var(--fg-muted)}
 <section id="videos">
   <div class="wrap">
     <h2>Real-Robot Deployment</h2>
-    <p class="lead">Successful closed-loop rollouts of the winning policy on each task. In both
-    videos the panel at the <b>top right</b> is the live, frame-synchronised tactile field that the
-    policy actually consumes.</p>
+    <p class="lead">Successful closed-loop rollouts of a top-performing policy on each task —
+    <code>force_norm</code> on Task 1, tied best at 80.0% with <code>depth</code>, and
+    <code>marker2d</code> on Task 2 at 86.7%. In both videos the panel at the <b>top right</b> is
+    the live, frame-synchronised tactile field that the policy actually consumes.</p>
 
     <div class="vid">
       <div class="vid-head">
@@ -420,7 +417,7 @@ footer a{color:var(--fg-muted)}
           <tr><td>force_norm + depth</td><td>16</td><td>0/5</td><td>5/5</td><td>1/5</td><td class="grp">40.0</td><td>0.10</td><td class="grp">—</td><td>—</td></tr>
           <tr><td>force</td><td>12</td><td>2/5</td><td>5/5</td><td>0/5</td><td class="grp">46.7</td><td>0.20</td><td class="grp">75.0</td><td>26.7</td></tr>
           <tr><td>marker2d + force_norm</td><td>20</td><td>3/5</td><td>0/5</td><td>5/5</td><td class="grp">53.3</td><td>0.30</td><td class="grp">—</td><td>—</td></tr>
-          <tr><td>force_norm</td><td>12</td><td>2/5</td><td>5/5</td><td>5/5</td><td class="grp">80.0</td><td>0.70</td><td class="grp">71.7</td><td>25.0</td></tr>
+          <tr class="best"><td>force_norm</td><td>12</td><td>2/5</td><td>5/5</td><td>5/5</td><td class="grp">80.0</td><td>0.70</td><td class="grp">71.7</td><td>25.0</td></tr>
           <tr class="best"><td>depth</td><td>4</td><td>5/5</td><td>5/5</td><td>2/5</td><td class="grp">80.0</td><td>0.70</td><td class="grp">71.7</td><td>21.7</td></tr>
           <tr class="best"><td>depth (seed 2)</td><td>4</td><td>5/5</td><td>5/5</td><td>5/5</td><td class="grp">100.0</td><td>1.00</td><td class="grp">—</td><td>—</td></tr>
         </tbody>
@@ -508,7 +505,7 @@ footer a{color:var(--fg-muted)}
         <h3>The choice cannot be made offline</h3>
         <p>The cheapest static probe is <b>anti</b>-predictive: the two fields that decode the hidden
         cube <i>best</i> give the two <i>worst</i> policies
-        (<i>ρ</i>&nbsp;=&nbsp;−0.91, <i>p</i>&nbsp;=&nbsp;0.005). Only closed-loop evaluation found
+        (<i>ρ</i>&nbsp;=&nbsp;−0.91, <i>p</i>&nbsp;=&nbsp;0.011). Only closed-loop evaluation found
         the field that worked.</p>
       </div>
       <div class="card">
