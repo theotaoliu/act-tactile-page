@@ -176,7 +176,7 @@ footer a{color:var(--fg-muted)}
 <section id="abstract">
   <div class="wrap">
     <h2>Abstract</h2>
-    <p class="lead">Tactile sensing is vital for contact-rich robotic manipulation, yet how different
+    <p class="lead">Tactile sensing is central to contact-rich robotic manipulation, yet how different
     tactile representations affect visuo-tactile imitation learning remains insufficiently understood.
     We present a controlled study of how tactile field selection governs policy performance. On a
     four-arm ALOHA platform with optical tactile sensors we co-record all seven native fields —
@@ -185,15 +185,15 @@ footer a{color:var(--fg-muted)}
     Transformers (ACT) with a tactile encoder fusing the selected tokens with visual and
     proprioceptive features under a standardised protocol.</p>
     <p class="lead">Eleven configurations are evaluated on two real-robot tasks, hidden-property
-    pick-and-place and pressure-regulated wiping. Field selection dominates, spanning 6.7–100.0% and
-    6.7–86.7% success against 33.3% and 13.3% for the vision-only baselines, and the effective field
-    is task-dependent: indentation depth reaches 80.0% and 100.0% over two seeds on pick-and-place,
-    while tangential marker displacement reaches 86.7% and 80.0% on wiping yet sits at the collapse
-    floor on the other task. Combining fields is not additive: of four physically motivated pairs,
+    pick-and-place and pressure-regulated wiping. Field selection dominates performance — success spans
+    6.7–100.0% and 6.7–86.7% against 33.3% and 13.3% for the vision-only baselines — and the
+    effective field is task-dependent: indentation depth reaches 80.0% and 100.0% over two seeds on pick-and-place,
+    while tangential marker displacement reaches 86.7% and 80.0% on wiping yet does not clear the
+    33.3% floor on the other task. Combining fields is not additive: of four physically motivated pairs,
     three fall below their better constituent (27/60 versus 45/60 pooled, <i>p</i>&nbsp;=&nbsp;0.001),
-    the same pair helping on one task and collapsing on the other, and concatenating all seven fields
+    the same pair helping on one task and failing on the other, and concatenating all seven fields
     degrades success to 26.7% and 40.0%. Selecting task-matched tactile representations is therefore
-    far more effective than maximising tactile input dimensionality.</p>
+    more effective than maximising tactile input dimensionality.</p>
     <figure>
       <img src="assets/img/main_image.jpg" alt="Manipulation with tactile sensing: the two tasks and the force_norm readings at both gripper pads.">
       <figcaption><b>Manipulation with tactile sensing.</b> Each follower gripper carries two optical
@@ -213,7 +213,7 @@ footer a{color:var(--fg-muted)}
     rather than to the data, the task or the sensor.</p>
 
     <figure>
-      <img src="assets/img/overview.png" alt="TactileACT architecture: seven co-recorded fields, a selection C, the tactile encoder and the ACT backbone.">
+      <img src="assets/img/overview.png" alt="Approach overview: seven co-recorded fields, a selection C, the tactile encoder and the ACT backbone.">
       <figcaption><b>Approach overview.</b> A fixed field selection <i>C</i> is drawn from seven
       co-recorded fields, and the inset shows the projected <code>force_norm</code> input, 12
       channels of which 8 are constant. The pad thumbnails are <code>rectify</code> displays, not
@@ -244,7 +244,7 @@ footer a{color:var(--fg-muted)}
   <div class="wrap">
     <h2>Tasks</h2>
     <p class="lead">Both tasks are designed so that the information a vision-only policy is missing
-    is specific and nameable. Each contributes 60 demonstrations recorded at 50&nbsp;Hz.</p>
+    is specific and identifiable. Each contributes 60 demonstrations recorded at 50&nbsp;Hz.</p>
 
     <figure>
       <img src="assets/img/mission_flow.png" alt="Both tasks as a stage sequence, with the policy's overhead view and the tactile field at the same instants.">
@@ -265,7 +265,7 @@ footer a{color:var(--fg-muted)}
 
     <h3>Task 1 — hidden-property pick-and-place</h3>
     <p>Three cubes <i>A</i>, <i>B</i> and <i>C</i> of identical 31.1&nbsp;mm edge length must each be
-    transported to an assigned target. All three are hollow printed shells differing only in hidden
+    transported to an assigned target. All three are hollow 3-D-printed shells differing only in hidden
     properties: <i>A</i> and <i>B</i> carry the same anti-slip tape at 13 and 109&nbsp;g, and <i>C</i>
     is bare PLA at 13&nbsp;g — so (<i>A</i>,&nbsp;<i>B</i>) varies mass at fixed friction and
     (<i>A</i>,&nbsp;<i>C</i>) friction at fixed mass. All three are demonstrated identically; no
@@ -385,8 +385,8 @@ footer a{color:var(--fg-muted)}
 <section id="results">
   <div class="wrap">
     <h2>Results</h2>
-    <p class="lead">All reported results are from the physical robot: twelve policies per task, for
-    24 policies × 15 trials = <b>360 trials</b>. Success is binary and judged from video; differences
+    <p class="lead">All reported results are from the physical robot: twelve policies per task,
+    24 × 15 = <b>360 trials</b> in all. Success is binary and judged from video; differences
     are tested with a two-sided Fisher's exact test.</p>
 
     <div class="tablewrap">
@@ -481,17 +481,18 @@ footer a{color:var(--fg-muted)}
       <div class="card">
         <span class="n">2</span>
         <h3>More tactile information is worse</h3>
-        <p><code>force</code> contains <code>force_norm</code> bit for bit at identical cost, yet
+        <p><code>force</code> contains <code>force_norm</code> exactly at identical cost, yet
         loses <b>33.3 points on each task</b>. Three of four physically motivated pairs fall below
         their better constituent (27/60 vs 45/60, <i>p</i>&nbsp;=&nbsp;0.001), and all seven fields
         concatenated reach only 26.7% and 40.0%.</p>
       </div>
       <div class="card">
         <span class="n">3</span>
-        <h3>Raw tactile images buy nothing</h3>
+        <h3>Raw tactile images: no gain detected</h3>
         <p>The two image fields — what visuo-tactile policies most often consume — pool to 13/60
-        against 7/30 for vision-only (<i>p</i>&nbsp;=&nbsp;1.0), while fields exposing contact
-        geometry or force reach 57/90 (<i>p</i>&nbsp;=&nbsp;5×10<sup>−7</sup>).</p>
+        against 7/30 for vision-only, no improvement detected, though the 95% interval on that
+        difference spans −21 to +15 points. Fields exposing contact geometry or force reach 57/90
+        (<i>p</i>&nbsp;=&nbsp;5×10<sup>−7</sup> against the image fields).</p>
       </div>
       <div class="card">
         <span class="n">4</span>
@@ -505,8 +506,8 @@ footer a{color:var(--fg-muted)}
         <h3>The choice cannot be made offline</h3>
         <p>The cheapest static probe is <b>anti</b>-predictive: the two fields that decode the hidden
         cube <i>best</i> give the two <i>worst</i> policies
-        (<i>ρ</i>&nbsp;=&nbsp;−0.91, <i>p</i>&nbsp;=&nbsp;0.011). Only closed-loop evaluation found
-        the field that worked.</p>
+        (<i>ρ</i>&nbsp;=&nbsp;−0.91, <i>p</i>&nbsp;=&nbsp;0.011). Only closed-loop evaluation identified
+        the effective field.</p>
       </div>
       <div class="card">
         <span class="n">6</span>
